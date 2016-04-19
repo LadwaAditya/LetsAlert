@@ -62,7 +62,8 @@ var UserSchema = new Schema({
     department: {
         type: String,
         unique: true,
-        trim: true
+        trim: true,
+        required: 'Please enter the department Name'
     },
     password: {
         type: String,
