@@ -11,6 +11,6 @@
         var vm = this;
 
         vm.eventalerts = EventalertsService.query();
-        console.log(vm.eventalerts);
+        // console.log(vm.eventalerts);
     }
 })();

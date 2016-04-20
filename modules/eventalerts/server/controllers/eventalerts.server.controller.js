@@ -97,6 +97,26 @@ exports.list = function (req, res) {
 };
 
 /**
+ * List of All Eventalerts
+ */
+exports.listall = function (req, res) {
+    console.log(req.user);
+    Eventalert.find().sort('-created').populate({
+        path: 'user',
+        select: 'displayName department city'
+    }).exec(function (err, eventalerts) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(eventalerts);
+        }
+    });
+};
+
+
+/**
  * Eventalert middleware
  */
 exports.eventalertByID = function (req, res, next, id) {

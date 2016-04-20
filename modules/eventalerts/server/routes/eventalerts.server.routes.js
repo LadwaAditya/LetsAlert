@@ -4,19 +4,22 @@
  * Module dependencies
  */
 var eventalertsPolicy = require('../policies/eventalerts.server.policy'),
-  eventalerts = require('../controllers/eventalerts.server.controller');
+    eventalerts = require('../controllers/eventalerts.server.controller');
 
-module.exports = function(app) {
-  // Eventalerts Routes
-  app.route('/api/eventalerts').all(eventalertsPolicy.isAllowed)
-    .get(eventalerts.list)
-    .post(eventalerts.create);
+module.exports = function (app) {
+    // Eventalerts Routes
+    app.route('/api/eventalerts').all(eventalertsPolicy.isAllowed)
+        .get(eventalerts.list)
+        .post(eventalerts.create);
 
-  app.route('/api/eventalerts/:eventalertId').all(eventalertsPolicy.isAllowed)
-    .get(eventalerts.read)
-    .put(eventalerts.update)
-    .delete(eventalerts.delete);
+    app.route('/api/eventalertsall')
+        .get(eventalerts.listall);
 
-  // Finish by binding the Eventalert middleware
-  app.param('eventalertId', eventalerts.eventalertByID);
+    app.route('/api/eventalerts/:eventalertId').all(eventalertsPolicy.isAllowed)
+        .get(eventalerts.read)
+        .put(eventalerts.update)
+        .delete(eventalerts.delete);
+
+    // Finish by binding the Eventalert middleware
+    app.param('eventalertId', eventalerts.eventalertByID);
 };
