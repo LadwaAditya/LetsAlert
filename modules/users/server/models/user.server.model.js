@@ -59,10 +59,10 @@ var UserSchema = new Schema({
         lowercase: true,
         trim: true
     },
-
     department: {
         type: String,
         trim: true,
+        lowercase: true,
         required: 'Please enter the department Name'
     },
     city: {
