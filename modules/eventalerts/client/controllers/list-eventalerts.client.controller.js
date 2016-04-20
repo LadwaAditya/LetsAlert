@@ -1,15 +1,16 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular
-    .module('eventalerts')
-    .controller('EventalertsListController', EventalertsListController);
+    angular
+        .module('eventalerts')
+        .controller('EventalertsListController', EventalertsListController);
 
-  EventalertsListController.$inject = ['EventalertsService'];
+    EventalertsListController.$inject = ['EventalertsService'];
 
-  function EventalertsListController(EventalertsService) {
-    var vm = this;
+    function EventalertsListController(EventalertsService) {
+        var vm = this;
 
-    vm.eventalerts = EventalertsService.query();
-  }
+        vm.eventalerts = EventalertsService.query();
+        console.log(vm.eventalerts);
+    }
 })();

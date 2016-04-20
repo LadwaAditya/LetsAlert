@@ -6,14 +6,16 @@
     <a data-ng-repeat="eventalert in vm.eventalerts"
        data-ui-sref="eventalerts.view({ eventalertId: eventalert._id })"
        class="list-group-item">
+
+      <h4 class="list-group-item-heading" data-ng-bind="eventalert.name"></h4>
       <small class="list-group-item-text">
         Posted on
         <span data-ng-bind="eventalert.created | date:'mediumDate'"></span>
         by
-        <span data-ng-if="eventalert.user" data-ng-bind="eventalert.user.displayName"></span>
+
+        <span>{{ eventalert.user.displayName }} ( {{ eventalert.user.department}} department, {{ eventalert.user.city }} ) </span>
         <span data-ng-if="!eventalert.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" data-ng-bind="eventalert.name"></h4>
     </a>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="vm.eventalerts.$resolved && !vm.eventalerts.length">
