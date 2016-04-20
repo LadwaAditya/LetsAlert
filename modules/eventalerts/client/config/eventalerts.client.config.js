@@ -10,7 +10,7 @@
   function menuConfig(Menus) {
     // Set top bar menu items
     Menus.addMenuItem('topbar', {
-      title: 'Eventalerts',
+      title: 'Events',
       state: 'eventalerts',
       type: 'dropdown',
       roles: ['user']
@@ -18,13 +18,13 @@
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'eventalerts', {
-      title: 'List Eventalerts',
+      title: 'List Events',
       state: 'eventalerts.list'
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'eventalerts', {
-      title: 'Create Eventalert',
+      title: 'Create Events',
       state: 'eventalerts.create',
       roles: ['user']
     });
