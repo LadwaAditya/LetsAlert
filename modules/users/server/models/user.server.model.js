@@ -62,13 +62,9 @@ var UserSchema = new Schema({
     department: {
         type: String,
         trim: true,
+        unique: true,
         lowercase: true,
         required: 'Please enter the department Name'
-    },
-    city: {
-        type: String,
-        trim: true,
-        required: 'Please enter your city'
     },
     password: {
         type: String,
@@ -110,8 +106,6 @@ var UserSchema = new Schema({
         type: Date
     }
 });
-
-UserSchema.index({department: 1, city: 1}, {unique: true});
 
 /**
  * Hook a pre save method to hash the password
