@@ -2,6 +2,7 @@
 
 var cfenv = require('cfenv'),
   appEnv = cfenv.getAppEnv();
+
 var cfMongoUrl = (function() {
   if (appEnv.getService('mean-mongo')) {
     var mongoCreds = appEnv.getService('mean-mongo').credentials;
@@ -19,7 +20,7 @@ var getCred = function (serviceName, credProp) {
 module.exports = {
   port: appEnv.port,
   db: {
-    uri: cfMongoUrl,
+    uri: "mongodb://adiladwa:password@ds011251.mlab.com:11251/meanladwa",
     options: {
       user: '',
       pass: ''
