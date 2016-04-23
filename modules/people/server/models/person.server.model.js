@@ -52,11 +52,6 @@ var PersonSchema = new Schema({
         required: 'Enter your Phone Number',
         validate: [validatePhone, 'Enter a 10 digit phone number']
     },
-    city: {
-        type: String,
-        trim: true,
-        required: 'Enter your city'
-    },
     created: {
         type: Date,
         default: Date.now
