@@ -6,6 +6,7 @@
 var path = require('path'),
     mongoose = require('mongoose'),
     Eventalert = mongoose.model('Eventalert'),
+    User = mongoose.model('User'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
 
@@ -83,9 +84,10 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
     console.log(req.user);
+
     Eventalert.find({user: req.user._id}).sort('-created').populate({
         path: 'user',
-        select: 'displayName department city'
+        select: 'displayName department'
     }).exec(function (err, eventalerts) {
         if (err) {
             return res.status(400).send({
@@ -102,9 +104,11 @@ exports.list = function (req, res) {
  */
 exports.listall = function (req, res) {
     console.log(req.user);
+
+
     Eventalert.find().sort('-created').populate({
         path: 'user',
-        select: 'displayName department city'
+        select: 'displayName department'
     }).exec(function (err, eventalerts) {
         if (err) {
             return res.status(400).send({
@@ -113,6 +117,127 @@ exports.listall = function (req, res) {
         } else {
             res.jsonp(eventalerts);
         }
+    });
+};
+
+exports.listpolice = function (req, res) {
+    console.log(req.user);
+    User.find({department: 'police'}, {_id: 1}, function (err, docs) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        var ids = docs.map(function (doc) {
+            return doc._id;
+        });
+
+
+        Eventalert.find({
+            'user': {$in: ids}
+        }).sort('-created').populate({
+            path: 'user',
+            select: 'displayName department'
+        }).exec(function (err, eventalerts) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(eventalerts);
+            }
+        });
+    });
+};
+
+exports.listelectricity =function (req, res) {
+    console.log(req.user);
+    User.find({department: 'electricity'}, {_id: 1}, function (err, docs) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        var ids = docs.map(function (doc) {
+            return doc._id;
+        });
+
+
+        Eventalert.find({
+            'user': {$in: ids}
+        }).sort('-created').populate({
+            path: 'user',
+            select: 'displayName department'
+        }).exec(function (err, eventalerts) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(eventalerts);
+            }
+        });
+    });
+};
+
+exports.listwater = function (req, res) {
+    console.log(req.user);
+    User.find({department: 'water'}, {_id: 1}, function (err, docs) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        var ids = docs.map(function (doc) {
+            return doc._id;
+        });
+
+
+        Eventalert.find({
+            'user': {$in: ids}
+        }).sort('-created').populate({
+            path: 'user',
+            select: 'displayName department'
+        }).exec(function (err, eventalerts) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(eventalerts);
+            }
+        });
+    });
+};
+
+
+exports.listcollege = function (req, res) {
+    console.log(req.user);
+    User.find({department: 'college'}, {_id: 1}, function (err, docs) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        var ids = docs.map(function (doc) {
+            return doc._id;
+        });
+
+
+        Eventalert.find({
+            'user': {$in: ids}
+        }).sort('-created').populate({
+            path: 'user',
+            select: 'displayName department'
+        }).exec(function (err, eventalerts) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(eventalerts);
+            }
+        });
     });
 };
 

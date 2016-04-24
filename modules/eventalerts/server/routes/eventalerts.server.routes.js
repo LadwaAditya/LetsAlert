@@ -15,6 +15,18 @@ module.exports = function (app) {
     app.route('/api/eventalertsall')
         .get(eventalerts.listall);
 
+    app.route('/api/eventalerts/police')
+        .get(eventalerts.listpolice);
+
+    app.route('/api/eventalerts/electricity')
+        .get(eventalerts.listelectricity);
+
+    app.route('/api/eventalerts/water')
+        .get(eventalerts.listwater);
+
+    app.route('/api/eventalerts/college')
+        .get(eventalerts.listcollege);
+
     app.route('/api/eventalerts/:eventalertId').all(eventalertsPolicy.isAllowed)
         .get(eventalerts.read)
         .put(eventalerts.update)
