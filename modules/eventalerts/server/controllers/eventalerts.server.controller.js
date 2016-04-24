@@ -12,9 +12,10 @@ var path = require('path'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
 
-function sendGcmNotif(gcmId, eventnmae) {
+function sendGcmNotif(gcmId, eventname, desc) {
     var message = new gcm.Message();
-    message.addData("message", eventnmae);
+    message.addData("message", eventname);
+    message.addData("description", desc);
 
     var sender = new gcm.Sender('AIzaSyAjIPtPw0-yWbhTMXNE8SwsA-vS9v7MXfM');
 
@@ -79,6 +80,10 @@ exports.update = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            Person.find().select('gcm').exec(function (err, gcm) {
+                var gcmId = _.map(gcm, 'gcm');
+                sendGcmNotif(gcmId, "Update: " + req.body.name, req.body.description);
+            });
             res.jsonp(eventalert);
         }
     });
