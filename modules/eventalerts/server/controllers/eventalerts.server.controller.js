@@ -7,13 +7,30 @@ var path = require('path'),
     mongoose = require('mongoose'),
     Eventalert = mongoose.model('Eventalert'),
     User = mongoose.model('User'),
+    Person = mongoose.model('Person'),
+    gcm = require('node-gcm'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
 
+function sendGcmNotif(gcmId, eventnmae) {
+    var message = new gcm.Message();
+    message.addData("message", eventnmae);
+
+    var sender = new gcm.Sender('AIzaSyAjIPtPw0-yWbhTMXNE8SwsA-vS9v7MXfM');
+
+
+    sender.send(message, {registrationTokens: gcmId}, function (err, response) {
+        if (err) console.error(err);
+        else    console.log(response);
+    });
+
+}
 /**
  * Create a Eventalert
  */
 exports.create = function (req, res) {
+
+
     var eventalert = new Eventalert(req.body);
     eventalert.user = req.user;
 
@@ -23,6 +40,11 @@ exports.create = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            Person.find().select('gcm').exec(function (err, gcm) {
+                var gcmId = _.map(gcm, 'gcm');
+                sendGcmNotif(gcmId, req.body.name);
+            });
+
 
             res.jsonp(eventalert);
         }
@@ -150,7 +172,7 @@ exports.listpolice = function (req, res) {
     });
 };
 
-exports.listelectricity =function (req, res) {
+exports.listelectricity = function (req, res) {
     console.log(req.user);
     User.find({department: 'electricity'}, {_id: 1}, function (err, docs) {
         if (err) {
