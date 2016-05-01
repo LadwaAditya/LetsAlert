@@ -12,10 +12,11 @@ var path = require('path'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
 
-function sendGcmNotif(gcmId, eventname, desc) {
+function sendGcmNotif(gcmId, eventname, desc, department) {
     var message = new gcm.Message();
     message.addData("message", eventname);
     message.addData("description", desc);
+    message.addData("department", department);
 
     var sender = new gcm.Sender('AIzaSyAjIPtPw0-yWbhTMXNE8SwsA-vS9v7MXfM');
 
@@ -34,7 +35,6 @@ exports.create = function (req, res) {
 
     var eventalert = new Eventalert(req.body);
     eventalert.user = req.user;
-
     eventalert.save(function (err) {
         if (err) {
             return res.status(400).send({
@@ -43,10 +43,8 @@ exports.create = function (req, res) {
         } else {
             Person.find().select('gcm').exec(function (err, gcm) {
                 var gcmId = _.map(gcm, 'gcm');
-                sendGcmNotif(gcmId, req.body.name);
+                sendGcmNotif(gcmId, req.body.name, req.body.description, req.user.department);
             });
-
-
             res.jsonp(eventalert);
         }
     });
@@ -82,7 +80,7 @@ exports.update = function (req, res) {
         } else {
             Person.find().select('gcm').exec(function (err, gcm) {
                 var gcmId = _.map(gcm, 'gcm');
-                sendGcmNotif(gcmId, "Update: " + req.body.name, req.body.description);
+                sendGcmNotif(gcmId, "Update: " + req.body.name, req.body.description, req.user.department);
             });
             res.jsonp(eventalert);
         }
