@@ -24,12 +24,14 @@ describe('Eventalert Model Unit Tests:', function() {
       displayName: 'Full Name',
       email: 'test@test.com',
       username: 'username',
-      password: 'password'
+      password: 'password',
+      department:'police'
     });
 
     user.save(function() { 
       eventalert = new Eventalert({
         name: 'Eventalert Name',
+        description:'Hello',
         user: user
       });
 

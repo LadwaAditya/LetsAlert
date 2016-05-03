@@ -31,8 +31,6 @@ function sendGcmNotif(gcmId, eventname, desc, department) {
  * Create a Eventalert
  */
 exports.create = function (req, res) {
-
-
     var eventalert = new Eventalert(req.body);
     eventalert.user = req.user;
     eventalert.save(function (err) {
@@ -108,7 +106,6 @@ exports.delete = function (req, res) {
  * List of Eventalerts
  */
 exports.list = function (req, res) {
-    console.log(req.user);
 
     Eventalert.find({user: req.user._id}).sort('-created').populate({
         path: 'user',
@@ -128,8 +125,6 @@ exports.list = function (req, res) {
  * List of All Eventalerts
  */
 exports.listall = function (req, res) {
-    console.log(req.user);
-
 
     Eventalert.find().sort('-created').populate({
         path: 'user',
@@ -146,7 +141,6 @@ exports.listall = function (req, res) {
 };
 
 exports.listpolice = function (req, res) {
-    console.log(req.user);
     User.find({department: 'police'}, {_id: 1}, function (err, docs) {
         if (err) {
             return res.status(400).send({
@@ -176,7 +170,7 @@ exports.listpolice = function (req, res) {
 };
 
 exports.listelectricity = function (req, res) {
-    console.log(req.user);
+
     User.find({department: 'electricity'}, {_id: 1}, function (err, docs) {
         if (err) {
             return res.status(400).send({
@@ -206,7 +200,7 @@ exports.listelectricity = function (req, res) {
 };
 
 exports.listwater = function (req, res) {
-    console.log(req.user);
+
     User.find({department: 'water'}, {_id: 1}, function (err, docs) {
         if (err) {
             return res.status(400).send({
@@ -237,7 +231,7 @@ exports.listwater = function (req, res) {
 
 
 exports.listcollege = function (req, res) {
-    console.log(req.user);
+
     User.find({department: 'college'}, {_id: 1}, function (err, docs) {
         if (err) {
             return res.status(400).send({
