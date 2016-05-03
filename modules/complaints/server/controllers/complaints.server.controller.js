@@ -14,7 +14,7 @@ var path = require('path'),
 
 function sendGcmNotif(gcmId, eventname, desc, department) {
     var message = new gcm.Message();
-    
+
     message.addData("message", eventname);
     message.addData("description", desc);
     message.addData("department", department);
@@ -34,9 +34,7 @@ function sendGcmNotif(gcmId, eventname, desc, department) {
  */
 exports.create = function (req, res) {
     var complaint = new Complaint(req.body);
-    console.log(req.body);
     var dept = req.body.department.toLowerCase();
-    console.log(dept);
     User.findOne({department: dept}).exec(function (err, user) {
         if (err) {
             return res.status(400).send({
@@ -87,7 +85,6 @@ exports.update = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            console.log(req.complaint);
             var gcmId = [req.complaint.gcm];
             sendGcmNotif(gcmId, "Aproved :" + req.complaint.name, req.complaint.person, req.complaint.department);
 
@@ -120,7 +117,6 @@ exports.delete = function (req, res) {
  * List of Complaints
  */
 exports.list = function (req, res) {
-
     Complaint.find({department: req.user.department}).sort('-created').exec(function (err, complaints) {
         if (err) {
             return res.status(400).send({

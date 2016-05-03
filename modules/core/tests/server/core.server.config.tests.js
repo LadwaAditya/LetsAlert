@@ -33,6 +33,7 @@ describe('Configuration Tests:', function () {
           firstName: 'User',
           lastName: 'Local',
           displayName: 'User Local',
+          department:'police',
           roles: ['user']
         };
 
@@ -42,6 +43,7 @@ describe('Configuration Tests:', function () {
           email: 'admin_config_test_@localhost.com',
           firstName: 'Admin',
           lastName: 'Local',
+          department:'police',
           displayName: 'Admin Local',
           roles: ['user', 'admin']
         };
