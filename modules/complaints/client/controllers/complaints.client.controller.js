@@ -40,9 +40,7 @@
       }
 
       function successCallback(res) {
-        $state.go('complaints.view', {
-          complaintId: res._id
-        });
+        $state.go('complaints.list');
       }
 
       function errorCallback(res) {

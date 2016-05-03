@@ -6,9 +6,27 @@
 var path = require('path'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    gcm = require('node-gcm'),
     Complaint = mongoose.model('Complaint'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
+
+
+function sendGcmNotif(gcmId, eventname, desc, department) {
+    var message = new gcm.Message();
+    message.addData("message", eventname);
+    message.addData("description", desc);
+    message.addData("department", department);
+
+    var sender = new gcm.Sender('AIzaSyAjIPtPw0-yWbhTMXNE8SwsA-vS9v7MXfM');
+
+
+    sender.send(message, {registrationTokens: gcmId}, function (err, response) {
+        if (err) console.error(err);
+        else    console.log(response);
+    });
+
+}
 
 /**
  * Create a Complaint
@@ -16,7 +34,7 @@ var path = require('path'),
 exports.create = function (req, res) {
     var complaint = new Complaint(req.body);
     console.log(req.body);
-    var dept =  req.body.department.toLowerCase();
+    var dept = req.body.department.toLowerCase();
     console.log(dept);
     User.findOne({department: dept}).exec(function (err, user) {
         if (err) {
@@ -78,6 +96,11 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
     var complaint = req.complaint;
+    console.log(req.complaint);
+    var gcmId = [req.complaint.gcm];
+    sendGcmNotif(gcmId, req.complaint.name, req.complaint.person, req.complaint.department);
+    console.log(gcmId);
+
 
     complaint.remove(function (err) {
         if (err) {
@@ -94,18 +117,6 @@ exports.delete = function (req, res) {
  * List of Complaints
  */
 exports.list = function (req, res) {
-
-    User.find({department: req.user.department}, {_id: 1}, function (err, docs) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        }
-
-        var ids = docs.map(function (doc) {
-            return doc._id;
-        });
-    });
 
     Complaint.find({department: req.user.department}).sort('-created').exec(function (err, complaints) {
         if (err) {
