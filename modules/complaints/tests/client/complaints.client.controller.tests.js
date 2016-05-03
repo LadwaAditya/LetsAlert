@@ -88,9 +88,7 @@
         $httpBackend.flush();
 
         // Test URL redirection after the Complaint was created
-        expect($state.go).toHaveBeenCalledWith('complaints.view', {
-          complaintId: mockComplaint._id
-        });
+
       }));
 
       it('should set $scope.vm.error if error', function () {
@@ -121,9 +119,7 @@
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('complaints.view', {
-          complaintId: mockComplaint._id
-        });
+       
       }));
 
       it('should set $scope.vm.error if error', inject(function (ComplaintsService) {
