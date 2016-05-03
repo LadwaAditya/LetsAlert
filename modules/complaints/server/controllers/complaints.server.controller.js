@@ -86,6 +86,10 @@ exports.update = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            console.log(req.complaint);
+            var gcmId = [req.complaint.gcm];
+            sendGcmNotif(gcmId, "Aproved :" + req.complaint.name, req.complaint.person, req.complaint.department);
+
             res.jsonp(complaint);
         }
     });
@@ -96,10 +100,8 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
     var complaint = req.complaint;
-    console.log(req.complaint);
     var gcmId = [req.complaint.gcm];
-    sendGcmNotif(gcmId, req.complaint.name, req.complaint.person, req.complaint.department);
-    console.log(gcmId);
+    sendGcmNotif(gcmId, "Rejected :" + req.complaint.name, req.complaint.person, req.complaint.department);
 
 
     complaint.remove(function (err) {
