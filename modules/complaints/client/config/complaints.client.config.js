@@ -23,10 +23,10 @@
     });
 
     // Add the dropdown create item
-    Menus.addSubMenuItem('topbar', 'complaints', {
-      title: 'Create Complaint',
-      state: 'complaints.create',
-      roles: ['user']
-    });
+    // Menus.addSubMenuItem('topbar', 'complaints', {
+    //   title: 'Create Complaint',
+    //   state: 'complaints.create',
+    //   roles: ['user']
+    // });
   }
 })();

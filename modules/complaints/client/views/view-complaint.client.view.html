@@ -6,10 +6,12 @@
        data-ng-show="vm.complaint.isCurrentUserOwner">
     <a class="btn btn-primary"
        data-ui-sref="complaints.edit({ complaintId: vm.complaint._id })">
-      <i class="glyphicon glyphicon-edit"></i>
+      <!--<i class="glyphicon glyphicon-edit"></i>-->
+      Aprove
     </a>
     <a class="btn btn-primary" data-ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
+      <!--<i class="glyphicon glyphicon-trash"></i>-->
+      Reject
     </a>
   </div>
   <small>
@@ -17,8 +19,8 @@
       Posted on
       <span data-ng-bind="vm.complaint.created | date:'mediumDate'"></span>
       by
-      <span data-ng-if="vm.complaint.user"
-            data-ng-bind="vm.complaint.user.displayName"></span>
+      <span data-ng-if="vm.complaint.person"
+            data-ng-bind="vm.complaint.person"></span>
       <span data-ng-if="!vm.complaint.user">Deleted User</span>
     </em>
   </small>

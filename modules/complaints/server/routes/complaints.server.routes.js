@@ -8,7 +8,7 @@ var complaintsPolicy = require('../policies/complaints.server.policy'),
 
 module.exports = function(app) {
   // Complaints Routes
-  app.route('/api/complaints').all(complaintsPolicy.isAllowed)
+  app.route('/api/complaints')
     .get(complaints.list)
     .post(complaints.create);
 

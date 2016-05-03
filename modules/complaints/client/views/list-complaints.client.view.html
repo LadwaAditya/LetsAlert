@@ -10,13 +10,13 @@
         Posted on
         <span data-ng-bind="complaint.created | date:'mediumDate'"></span>
         by
-        <span data-ng-if="complaint.user" data-ng-bind="complaint.user.displayName"></span>
+        <span data-ng-if="complaint.person" data-ng-bind="complaint.person"></span>
         <span data-ng-if="!complaint.user">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" data-ng-bind="complaint.name"></h4>
     </a>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="vm.complaints.$resolved && !vm.complaints.length">
-    No Complaints yet, why don't you <a data-ui-sref="complaints.create">create one</a>?
+    No Complaints yet
   </div>
 </section>

@@ -20,7 +20,7 @@
 
     // Remove existing Complaint
     function remove() {
-      if (confirm('Are you sure you want to delete?')) {
+      if (confirm('Are you sure you want to Reject?')) {
         vm.complaint.$remove($state.go('complaints.list'));
       }
     }
