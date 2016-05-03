@@ -14,6 +14,7 @@ var path = require('path'),
 
 function sendGcmNotif(gcmId, eventname, desc, department) {
     var message = new gcm.Message();
+    
     message.addData("message", eventname);
     message.addData("description", desc);
     message.addData("department", department);
