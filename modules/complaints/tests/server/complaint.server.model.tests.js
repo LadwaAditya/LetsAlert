@@ -30,7 +30,8 @@ describe('Complaint Model Unit Tests:', function() {
     user.save(function() { 
       complaint = new Complaint({
         name: 'Complaint Name',
-        user: user
+        user: user,
+        department:'police'
       });
 
       done();
