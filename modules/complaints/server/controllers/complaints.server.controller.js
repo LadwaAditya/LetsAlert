@@ -87,7 +87,6 @@ exports.update = function (req, res) {
         } else {
             var gcmId = [req.complaint.gcm];
             sendGcmNotif(gcmId, "Aproved :" + req.complaint.name, req.complaint.person, req.complaint.department);
-
             res.jsonp(complaint);
         }
     });
