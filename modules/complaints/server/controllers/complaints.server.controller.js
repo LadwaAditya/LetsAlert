@@ -19,7 +19,7 @@ function sendGcmNotif(gcmId, eventname, desc, department) {
     message.addData("description", desc);
     message.addData("department", department);
 
-    var sender = new gcm.Sender('AIzaSyAjIPtPw0-yWbhTMXNE8SwsA-vS9v7MXfM');
+    var sender = new gcm.Sender('AIzaSyCLL8oQdHcR9F88BInvGQM5THgd9qKXFoM');
 
 
     sender.send(message, {registrationTokens: gcmId}, function (err, response) {
